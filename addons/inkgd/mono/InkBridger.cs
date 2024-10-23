@@ -134,20 +134,16 @@ public partial class InkBridger : Node
 	public GodotObject MakeGDInkList(Ink.Runtime.InkList list)
 	{
 		var inkListBase = new Godot.Collections.Dictionary<string, int>();
-
 		foreach(KeyValuePair<Ink.Runtime.InkListItem, int> kv in list) {
 			inkListBase.Add(MakeGDInkListItem(kv.Key).Call("serialized").As<string>(), kv.Value);
 		}
-
 		Variant[] inkListParams = new Variant[] {
 			inkListBase,
 			list.originNames.ToArray(),
 			MakeGDInkListOrigins(list.origins)
 		};
-
 		var inkList = (GodotObject) InkList.New();
 		inkList.Call("_init_from_csharp", inkListParams);
-
 		return inkList;
 	}
 
@@ -266,7 +262,6 @@ public partial class InkBridger : Node
 		List<Ink.Runtime.ListDefinition> listDefinitions)
 	{
 		var inkListDefinitions = new Godot.Collections.Array<GodotObject>();
-
 		foreach(Ink.Runtime.ListDefinition listDefinition in listDefinitions) {
 			var inkListDefinition = MakeGDListDefinition(listDefinition);
 			inkListDefinitions.Add(inkListDefinition);
@@ -278,15 +273,12 @@ public partial class InkBridger : Node
 	private GodotObject MakeGDListDefinition(Ink.Runtime.ListDefinition listDefinition)
 	{
 		var items = new Godot.Collections.Dictionary<string, int>();
-
 		foreach(KeyValuePair<Ink.Runtime.InkListItem, int> kv in listDefinition.items) {
 			var inkListItem = MakeGDInkListItem(kv.Key);
 			items.Add((string)inkListItem.Get("item_name"), kv.Value);
 		}
-
 		var definitionParams = new Variant[] { listDefinition.name, items };
 		var inkListDefinition = (GodotObject) InkListDefinition.New(definitionParams);
-
 		return inkListDefinition;
 	}
 

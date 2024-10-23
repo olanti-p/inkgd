@@ -492,12 +492,14 @@ func _get_story_configuration_at_index(index: int):
 
 
 func _recompile_if_necessary(resources: PackedStringArray):
+	if not configuration.compilation_mode == InkConfiguration.BuildMode.AFTER_CHANGE:
+		# only recompile on resource reimport if build mode is set to "on change" 
+		return
 	# Making sure the resources have been imported before recompiling.
 	await get_tree().create_timer(0.5).timeout
-
+	
 	for story_configuration in configuration.stories:
 		var watched_folder_path: String = configuration.get_watched_folder_path(story_configuration)
-
 		if watched_folder_path.is_empty():
 			return
 

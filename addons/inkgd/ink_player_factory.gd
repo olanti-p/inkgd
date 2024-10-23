@@ -10,7 +10,7 @@ extends RefCounted
 
 class_name InkPlayerFactory
 
-const DO_NOT_USE_MONO_RUNTIME_SETTING = "inkgd/do_not_use_mono_runtime"
+const USE_MONO_RUNTIME_SETTING = "inkgd/use_mono_runtime"
 
 # ############################################################################ #
 # Methods
@@ -36,12 +36,12 @@ static func create():
 
 
 static func _should_use_mono() -> bool:
-	if ProjectSettings.has_setting(DO_NOT_USE_MONO_RUNTIME_SETTING):
-		var do_not_use_mono = ProjectSettings.get_setting(DO_NOT_USE_MONO_RUNTIME_SETTING)
-		if do_not_use_mono == null:
-			do_not_use_mono = false
+	if ProjectSettings.has_setting(USE_MONO_RUNTIME_SETTING):
+		var use_mono = ProjectSettings.get_setting(USE_MONO_RUNTIME_SETTING)
+		if use_mono == null:
+			use_mono = false
 
-		return _can_run_mono() && !do_not_use_mono
+		return _can_run_mono() && use_mono
 	else:
 		return _can_run_mono()
 
