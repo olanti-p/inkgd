@@ -822,10 +822,11 @@ func _finalise_story_creation() -> void:
 func _add_runtime() -> void:
 	# The InkRuntime is normaly an auto-loaded singleton,
 	# but if it's not present, it's added here.
-	var runtime: Node = InkUtils.InkRuntime
-	if runtime == null:
+	if !InkUtils.has_runtime():
 		_manages_runtime = true
-		runtime = InkRuntimeManager.init(get_tree().root)
+		InkRuntimeManager.init(get_tree().root)
+		
+	var runtime: Node = InkUtils.InkRuntime
 
 	if !runtime.is_connected("exception_raised", _exception_raised):
 		runtime.connect("exception_raised", _exception_raised)
