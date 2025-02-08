@@ -741,6 +741,9 @@ func create_ink_list_from_item_name(item_name: String) -> InkList:
 	return InkList.from_string(item_name, _story)
 
 
+func is_path_valid(path:String) -> bool:
+	return _story.content_at_path(InkPath.new_with_components_string(path)).correct_obj != null
+
 # ############################################################################ #
 # Private Methods | Signal Forwarding
 # ############################################################################ #

@@ -280,7 +280,7 @@ func _set_button_icons():
 
 
 func _connect_signals():
-	editor_interface.editor_filesystem.connect("filesystem_changed", Callable(self, "_check_runtime_presence"))
+	#editor_interface.editor_filesystem.connect("filesystem_changed", Callable(self, "_check_runtime_presence"))
 
 	_test_button.connect("pressed", Callable(self, "_test_button_pressed"))
 	_use_mono_checkbox.connect("toggled", Callable(self, "_use_mono_toggled"))

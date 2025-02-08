@@ -48,7 +48,7 @@ public partial class InkPlayer : Node
 		get {
 			if (story == null)
 			{
-				PushNullStoryError();
+				//PushNullStoryError();
 				return false;
 			}
 
@@ -58,7 +58,7 @@ public partial class InkPlayer : Node
 		set {
 			if (story == null)
 			{
-				PushNullStoryError();
+				//PushNullStoryError();
 				return;
 			}
 
@@ -388,8 +388,7 @@ public partial class InkPlayer : Node
 		{
 			if (can_continue)
 			{
-				story.ContinueMaximally();
-				text = current_text;
+				text = story.ContinueMaximally();
 			}
 			else if (has_choices)
 			{
@@ -696,6 +695,11 @@ public partial class InkPlayer : Node
 
 			if (variable is Ink.Runtime.InkList inkList)
 			{
+				if (inkList.origins == null || inkList.origins.Count == 0)
+				{
+					GD.Print($"Error with list.origins for {name}={inkList} (null or empty)");
+					return new Variant();
+				} 
 				return inkBridger.MakeGDInkList(inkList);
 			}
 
@@ -1288,4 +1292,10 @@ public partial class InkPlayer : Node
 		}
 	}
 	#endregion
+	
+	public bool is_path_valid(string path)
+	{
+	return story.ContentAtPath(new Ink.Runtime.Path(path)).correctObj != null;
+	}
+	
 }
