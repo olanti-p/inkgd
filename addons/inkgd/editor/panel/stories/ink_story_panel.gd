@@ -130,7 +130,8 @@ func _compilation_mode_changed(compilation_mode: int):
 	var show_folder = (compilation_mode == InkConfiguration.BuildMode.AFTER_CHANGE)
 
 	for child in _story_configuration_container.get_children():
-		child.show_watched_folder(show_folder)
+		if "show_watched_folder" in child:
+			child.show_watched_folder(show_folder)
 
 func _source_file_button_pressed(node):
 	_reset_file_dialog()
