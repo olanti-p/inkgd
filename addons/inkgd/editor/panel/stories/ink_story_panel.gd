@@ -105,7 +105,7 @@ func _ready():
 
 	configuration.connect("compilation_mode_changed", Callable(self, "_compilation_mode_changed"))
 
-	editor_interface.editor_filesystem.connect("resources_reimported", Callable(self, "_resources_reimported"))
+	editor_interface.connect("ink_resources_reimported", Callable(self, "_resources_reimported"))
 
 	_story_configuration_container.add_child(_empty_state_container)
 	add_child(_file_dialog)
@@ -492,9 +492,6 @@ func _get_story_configuration_at_index(index: int):
 
 
 func _recompile_if_necessary(resources: PackedStringArray):
-	# Making sure the resources have been imported before recompiling.
-	await get_tree().create_timer(0.5).timeout
-
 	for story_configuration in configuration.stories:
 		var watched_folder_path: String = configuration.get_watched_folder_path(story_configuration)
 
